@@ -8,17 +8,17 @@ public class Shipment {
     private final String TRUCK = "Truck";
     private final Item[] items;
     private int itemCount;
-    private double totalWeight; // Додавання поля totalWeight
+    private double totalWeight;
 
     public Shipment(int maxSize) {
         items = new Item[maxSize];
         id = nextId++;
     }
 
-    // Новий конструктор, який приймає totalWeight
+
     public Shipment(int maxSize, double totalWeight) {
-        this(maxSize); // Викликаємо основний конструктор
-        this.totalWeight = totalWeight; // Встановлюємо totalWeight
+        this(maxSize);
+        this.totalWeight = totalWeight;
     }
 
     public int getId() {
@@ -33,7 +33,7 @@ public class Shipment {
     }
 
     public double getTotalWeight() {
-        double weight = totalWeight; // Використовуємо totalWeight, якщо він був встановлений
+        double weight = totalWeight; 
         for (int i = 0; i < itemCount; i++) {
             weight += items[i].getWeight();
         }
