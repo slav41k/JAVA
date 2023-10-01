@@ -1,49 +1,58 @@
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Arrays;
 
-public class DeliveryService
-{
-    private List<Shipment> shipments = new ArrayList<>();
+public class DeliveryService {
+    private Shipment[] shipments = new Shipment[10];
+    private int shipmentCount = 0;
 
-    public void createShipment(Customer customer, DeparturePoint departurePoint, Point receivePoint, Item[] items) {
+    public void createShipment(Customer customer, Point departurePoint, Point receivePoint, Item[] items) {
         Shipment shipment = new Shipment(items.length);
-        for (Item item : items) {
-            shipment.addItem(item);
+        for (int i = 0; i < items.length; i++) {
+            shipment.addItem(items[i]);
         }
 
-        shipments.add(shipment);
+        if (shipmentCount < shipments.length) {
+            shipments[shipmentCount] = shipment;
+            shipmentCount++;
 
-        System.out.println("Shipment created for customer: " + customer.getName() +
-                " from " + departurePoint.getAddress() +
-                " to " + receivePoint.getAddress());
+            System.out.println("Shipment created for customer: " + customer.getName() +
+                    " from " + departurePoint.getAddress() +
+                    " to " + receivePoint.getAddress());
 
-        System.out.println("Items in the shipment:");
-        for (Item item : items) {
-            System.out.println(item.getName() + " - " + item.getWeight() + " kg, " + item.getSize() + "cm3");
+            System.out.println("Items in the shipment:");
+            for (Item item : items) {
+                System.out.println(item.getName() +
+                        " - " + item.getWeight() +
+                        " kg, " +
+                        item.getSize() +
+                        "cm3");
+            }
+            System.out.println("Total weight: " +
+                    shipment.getTotalWeight() +
+                    ", total size: " +
+                    shipment.getTotalSize() +
+                    "cm3");
+
+            if ("Unknown".equals(receivePoint.getAddress())) {
+                shipment = new Shipment(items.length, 1); 
+            }
+
+            String transportMethod = shipment.chooseTransport();
+            System.out.println("Chosen transport: " + transportMethod);
+        } else {
+            System.out.println("No more space for shipments.");
         }
-        System.out.println("Total weight: " + shipment.getTotalWeight() + ", total size: " + shipment.getTotalSize() + "cm3");
-
-        // Вивід інформації про спосіб доставки
-        String transportMethod = shipment.chooseTransport();
-        System.out.println("Chosen transport: " + transportMethod);
     }
 
     public void cancelShipment(int shipmentId) {
-        Shipment shipmentToRemove = null;
-        for (Shipment shipment : shipments) {
-            if (shipment.getId() == shipmentId) {
-                shipmentToRemove = shipment;
-                break;
+        for (int i = 0; i < shipmentCount; i++) {
+            if (shipments[i].getId() == shipmentId) {
+                shipments[i] = shipments[shipmentCount - 1];
+                shipments[shipmentCount - 1] = null;
+                shipmentCount--;
+                System.out.println("Shipment with ID " + shipmentId + " has been canceled.");
+                return;
             }
         }
-
-        if (shipmentToRemove != null) {
-            shipments.remove(shipmentToRemove);
-            System.out.println("Shipment with ID " + shipmentId + " has been canceled.");
-        } else {
-            System.out.println("Shipment with ID " + shipmentId + " not found.");
-        }
+        System.out.println("Shipment with ID " + shipmentId + " not found.");
     }
-
-
 }
