@@ -1,9 +1,9 @@
 
 public class DeliveryService {
-    private final Shipment[] shipments = new Shipment[10];
+    private final Shipment[] shipments = new Shipment[5];
     private int shipmentCount = 0;
 
-    public void createShipment(Customer customer, Point departurePoint, Point receivePoint, Item[] items) {
+    public void createShipment(Customer customer, DeparturePoint departurePoint, Point receivePoint, Item[] items) {
         Shipment shipment = new Shipment(items.length);
         for (Item value : items) {
             shipment.addItem(value);
@@ -19,17 +19,13 @@ public class DeliveryService {
 
             System.out.println("Items in the shipment:");
             for (Item item : items) {
-                System.out.println(item.getName() +
-                        " - " + item.getWeight() +
-                        " kg, " +
-                        item.getSize() +
-                        "cm3");
+                System.out.println(item.getName() + " - " +
+                        item.getWeight() + " kg, " +
+                        item.getSize() + "cm3");
             }
             System.out.println("Total weight: " +
-                    shipment.getTotalWeight() +
-                    ", total size: " +
-                    shipment.getTotalSize() +
-                    "cm3");
+                    shipment.getTotalWeight() + ", total size: " +
+                    shipment.getTotalSize() + "cm3");
 
             if ("Unknown".equals(receivePoint.getAddress())) {
                 shipment = new Shipment(items.length, 1);
