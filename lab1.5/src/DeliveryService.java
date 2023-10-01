@@ -5,7 +5,7 @@ public class DeliveryService
 {
     private List<Shipment> shipments = new ArrayList<>();
 
-    public void createShipment(Customer customer, Point departurePoint, Point receivePoint, Item[] items) {
+    public void createShipment(Customer customer, DeparturePoint departurePoint, Point receivePoint, Item[] items) {
         Shipment shipment = new Shipment(items.length);
         for (Item item : items) {
             shipment.addItem(item);
