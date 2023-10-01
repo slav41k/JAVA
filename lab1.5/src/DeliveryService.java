@@ -1,13 +1,12 @@
-import java.util.Arrays;
 
 public class DeliveryService {
-    private Shipment[] shipments = new Shipment[10];
+    private final Shipment[] shipments = new Shipment[10];
     private int shipmentCount = 0;
 
     public void createShipment(Customer customer, Point departurePoint, Point receivePoint, Item[] items) {
         Shipment shipment = new Shipment(items.length);
-        for (int i = 0; i < items.length; i++) {
-            shipment.addItem(items[i]);
+        for (Item value : items) {
+            shipment.addItem(value);
         }
 
         if (shipmentCount < shipments.length) {
@@ -33,7 +32,7 @@ public class DeliveryService {
                     "cm3");
 
             if ("Unknown".equals(receivePoint.getAddress())) {
-                shipment = new Shipment(items.length, 1); 
+                shipment = new Shipment(items.length, 1);
             }
 
             String transportMethod = shipment.chooseTransport();
