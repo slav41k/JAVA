@@ -1,6 +1,6 @@
 public class ReceivePoint implements Point
 {
-    private String address;
+    private final String address;
 
     public ReceivePoint(String address) {
         this.address = address;
