@@ -10,18 +10,18 @@ public class Main {
         DeparturePoint departurePoint3 = new DeparturePoint("Kramatorsk");
 
 
-        ReceivePoint receivePoint2 = new ReceivePoint("Lviv");
+        ReceivePoint receivePoint2 = new ReceivePoint("Unknown");
         ReceivePoint receivePoint3 = new ReceivePoint("Moscow");
 
         int countOfItems1 = 3;
         Item[] items1 = new Item[countOfItems1];
-        items1[0] = new Item("Laptop", 2, 2, 10, 14);
+        items1[0] = new Item("Laptop", 8, 2, 10, 14);
         items1[1] = new Item("Pencil", 0.05, 10, 1, 1);
         items1[2] = new Item("Phone", 2, 9, 4, 1);
 
         int countOfItems2 = 3;
         Item[] items2 = new Item[countOfItems2];
-        items2[0] = new Item("Book", 1, 3, 5, 1);
+        items2[0] = new Item("Book", 15, 3, 5, 1);
         items2[1] = new Item("Headphones", 0.2, 5, 5, 5);
         items2[2] = new Item("Pillow", 0.5, 75, 75, 100);
 
@@ -35,7 +35,7 @@ public class Main {
 
         deliveryService.createShipment(customer1, departurePoint1, departurePoint2, items1);
 
-        deliveryService.createShipment(customer2, departurePoint2, receivePoint2, items2);
+        deliveryService.createShipment(customer2, departurePoint2,receivePoint2, items2);
 
         deliveryService.createShipment(customer3, departurePoint3, receivePoint3, items3);
 

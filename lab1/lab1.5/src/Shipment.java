@@ -1,17 +1,20 @@
 public class Shipment {
 
     private static int nextId = 1;
-    private int id;
-    private final String BICYCLE = "Bicycle";
-    private final String BUS = "Bus";
-    private final String TRAIN = "Train";
-    private final String TRUCK = "Truck";
+    private final int id;
     private final Item[] items;
     private int itemCount;
+    private double totalWeight;
 
     public Shipment(int maxSize) {
         items = new Item[maxSize];
         id = nextId++;
+    }
+
+
+    public Shipment(int maxSize, double totalWeight) {
+        this(maxSize);
+        this.totalWeight = totalWeight;
     }
 
     public int getId() {
@@ -26,11 +29,11 @@ public class Shipment {
     }
 
     public double getTotalWeight() {
-        double totalWeight = 0;
+        double weight = totalWeight;
         for (int i = 0; i < itemCount; i++) {
-            totalWeight += items[i].getWeight();
+            weight += items[i].getWeight();
         }
-        return totalWeight;
+        return weight;
     }
 
     public int getTotalSize() {
@@ -46,17 +49,13 @@ public class Shipment {
         int totalSize = getTotalSize();
 
         if (totalWeight <= 10 && totalSize <= 500000) {
-            return BICYCLE;
+            return "Curier";
         } else if (totalWeight <= 300 && totalSize <= 4000000) {
-            return BUS;
+            return "Bus";
         } else if (totalWeight <= 750 && totalSize <= 12000000) {
-            return TRAIN;
+            return "Train";
         } else {
-            return TRUCK;
+            return "Truck";
         }
     }
-
-
-
-
 }
